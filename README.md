@@ -8,6 +8,8 @@
 npx @outbindai/cli learn yourcompany.com
 ```
 
+<img src="assets/learn.gif" alt="outbind learn turning a website into brain.md" width="760">
+
 </div>
 
 ---
