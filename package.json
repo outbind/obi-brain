@@ -1,0 +1,13 @@
+{
+  "name": "@outbindai/cli",
+  "version": "0.1.0",
+  "description": "Give your AI agent a sales brain: turn any company's website into brain.md, then write from it.",
+  "type": "module",
+  "bin": { "outbind": "outbind.mjs" },
+  "files": ["outbind.mjs", "README.md", "LICENSE", "playbook"],
+  "engines": { "node": ">=20" },
+  "license": "MIT",
+  "publishConfig": { "access": "public" },
+  "homepage": "https://outbind.ai",
+  "keywords": ["outbind", "sales", "mcp", "ai-agents", "cli", "cold-email"]
+}
