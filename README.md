@@ -26,7 +26,102 @@ Coding agents and AI assistants can run commands for you, so just ask:
 
 The agent runs `outbind learn`, reads `brain.md` and writes from it.
 
-Prefer a chat app? Run `npx @outbindai/cli mcp` to connect Outbind to your AI assistant.
+Prefer a chat app? Obi's brain is also an MCP server, so it works inside Claude, ChatGPT, Cursor and any app that speaks MCP. See [Use it over MCP](#use-it-over-mcp).
+
+## Use it over MCP
+
+The same brain runs as a remote MCP server. Connect it once and your assistant can read your brain, remember prospects and write with it in any chat.
+
+```
+https://app.outbind.ai/api/mcp
+```
+
+Sign-in is OAuth: your app opens Outbind, you sign in (or make a free account) and press Allow. No key to copy. You pick **Read only** or **Can draft and edit**.
+
+### Claude (web, desktop and mobile)
+
+Open [Outbind in Claude's connector directory](https://claude.ai/directory/outbind) and press **Connect**.
+
+Or add it by hand: **Settings → Connectors → Add custom connector**, name it Outbind and paste the URL above. Then turn Outbind on in a chat's tools menu.
+
+### ChatGPT
+
+Open [Plugins](https://chatgpt.com/plugins), press **+** and pick **Add custom MCP server**. Paste the URL, pick OAuth and press **Create**. Then add Outbind from the **+** menu in a chat.
+
+### Claude Code
+
+```
+claude mcp add --transport http outbind https://app.outbind.ai/api/mcp
+```
+
+Start Claude Code, type `/mcp`, pick `outbind` and choose **Authenticate**.
+
+### Cursor
+
+**Cursor Settings → Tools & MCP → New MCP server**, then add this to `mcp.json`:
+
+```json
+{
+  "mcpServers": {
+    "outbind": { "url": "https://app.outbind.ai/api/mcp" }
+  }
+}
+```
+
+Press **Connect** next to outbind and sign in.
+
+### VS Code
+
+Add this to `.vscode/mcp.json`:
+
+```json
+{
+  "servers": {
+    "outbind": { "type": "http", "url": "https://app.outbind.ai/api/mcp" }
+  }
+}
+```
+
+Press **Start** above the outbind entry and sign in.
+
+### Other apps
+
+Any app that can sign in to MCP servers with OAuth only needs the URL; it finds the sign-in by itself. `npx @outbindai/cli mcp` prints these steps in your terminal.
+
+### MCP tools
+
+All of these are on the free plan, within its limits. Writing happens on Outbind's side, with its own playbook and checks, and comes back as finished text. Nothing is ever sent.
+
+| Tool | What it does |
+| --- | --- |
+| `get_brain` | Reads what Obi knows about your company: offer, ideal customer, voice and lessons |
+| `create_icp` | Builds your ideal customer profile from your website and your own words |
+| `save_lesson` | Teaches Obi a sales lesson it uses from the next message on |
+| `remember_prospect` | Saves a note about a prospect |
+| `recall_prospect` | Everything Obi remembers about a prospect: details, notes, brief, fit and history |
+| `research_prospect` | Writes a brief from the prospect's company pages, public posts and news, each point with its source |
+| `score_fit` | Scores a prospect against your ideal customer profile: Strong, Good or Weak, with reasons |
+| `write_email` | Writes a sales email or follow-up for a prospect |
+| `fix_draft` | Rewrites an email you wrote, keeping your point and your facts |
+| `sort_reply` | Says what a reply means (interested, meeting, objection, referral, not now, stop, out of office) |
+| `answer_reply` | Sorts a reply and writes the answer |
+| `write_dm` | Writes a short LinkedIn message or connection note |
+| `write_call_script` | Writes a cold call script: opener, questions, objections, close and voicemail |
+| `plan_flow` | Plans a multi-step sequence as a written plan you follow |
+| `verify_emails` | Checks up to 25 email addresses: Valid, Invalid, Risky or Unknown |
+| `add_document` | Teaches the brain from a document you share in the chat |
+| `list_documents` | Lists the documents the brain learned from |
+| `remove_document` | Removes a document and what Obi learned from it |
+
+With **Read only** access the assistant gets the reading tools (`get_brain`, `recall_prospect`, `sort_reply`, `list_documents`).
+
+Try asking:
+
+> "Research jane@acme.com, score her fit and write me a first email."
+
+> "Here's what she replied. What does it mean and what should I say?"
+
+> "Add this deck to my Outbind brain."
 
 ## Free preview vs free account
 
@@ -59,7 +154,7 @@ outbind docs add <file>        Teach the brain from PDF, Word, PowerPoint, text,
 outbind docs                   What the brain learned
 outbind tools                  The brain tools you can run
 outbind run <tool> k=v         Run one
-outbind mcp                    Connect Outbind to your AI assistant
+outbind mcp                    How to connect Outbind over MCP
 outbind help                   Everything else
 ```
 
